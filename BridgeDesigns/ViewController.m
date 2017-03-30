@@ -23,9 +23,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *middleButton;
 @property (weak, nonatomic) IBOutlet UIButton *circleButton;
 
+@property (strong, nonatomic) CustomView *customView;
+
 @property (nonatomic) ViewColor currentViewColor;
 @property (nonatomic) ViewSize currentViewSize;
 @property (nonatomic) ViewShape currentViewShape;
+
+@property (strong, nonatomic) UIColor *defaultGrey;
 
 @end
 
@@ -39,12 +43,11 @@
     self.currentViewSize = ViewSizeMedium;
     self.currentViewShape = ViewShapeRounded;
     
-    [self.greenButton.titleLabel setTextColor:[self lighterColorForColor:self.greenButton.backgroundColor]];
-    [self.redButton.titleLabel setTextColor:[self lighterColorForColor:self.redButton.backgroundColor]];
-    [self.smallButton.titleLabel setTextColor:[self lighterColorForColor:self.smallButton.backgroundColor]];
-    [self.largeButton.titleLabel setTextColor:[self lighterColorForColor:self.largeButton.backgroundColor]];
-    [self.squareButton.titleLabel setTextColor:[self lighterColorForColor:self.squareButton.backgroundColor]];
-    [self.circleButton.titleLabel setTextColor:[self lighterColorForColor:self.circleButton.backgroundColor]];
+    self.defaultGrey = [UIColor colorWithWhite:0.25 alpha:1.0];
+    
+    [self highlightButton:self.blueButton];
+    [self highlightButton:self.mediumButton];
+    [self highlightButton:self.middleButton];
 }
 
 
@@ -55,88 +58,115 @@
 
 - (IBAction)createNewView:(id)sender
 {
+    CGFloat defaultSize = 200;
+    CGRect viewFrame = CGRectMake(self.view.frame.size.width/2 - defaultSize/2, self.view.frame.size.height/2 - defaultSize/2, defaultSize, defaultSize);
+    ViewStyle newStyle;
+    newStyle.color = self.currentViewColor;
+    newStyle.shape = self.currentViewShape;
+    newStyle.size = self.currentViewSize;
     
+    self.customView = [[CustomView alloc] initWithFrame:viewFrame andStyle:newStyle];
+    [self.view addSubview:self.customView];
 }
 
 - (IBAction)greenButtonPressed:(id)sender
 {
-    [self.greenButton setTintColor:[self darkerColorForColor:self.greenButton.backgroundColor]];
-    [self.blueButton setTintColor:[self lighterColorForColor:self.blueButton.backgroundColor]];
-    [self.redButton setTintColor:[self lighterColorForColor:self.redButton.backgroundColor]];
+    [self highlightButton:self.greenButton];
+    [self unhighlightButton:self.blueButton];
+    [self unhighlightButton:self.redButton];
+    
     self.currentViewColor = ViewColorGreen;
 }
 
 - (IBAction)blueButtonPressed:(id)sender
 {
-    [self.blueButton setTintColor:[self darkerColorForColor:self.blueButton.backgroundColor]];
-    [self.greenButton setTintColor:[self lighterColorForColor:self.greenButton.backgroundColor]];
-    [self.redButton setTintColor:[self lighterColorForColor:self.redButton.backgroundColor]];
+    [self highlightButton:self.blueButton];
+    [self unhighlightButton:self.greenButton];
+    [self unhighlightButton:self.redButton];
+    
     self.currentViewColor = ViewColorBlue;
 }
 
 - (IBAction)redButtonPressed:(id)sender
 {
-    [self.redButton setTintColor:[self darkerColorForColor:self.redButton.backgroundColor]];
-    [self.blueButton setTintColor:[self lighterColorForColor:self.blueButton.backgroundColor]];
-    [self.greenButton setTintColor:[self lighterColorForColor:self.greenButton.backgroundColor]];
+    [self highlightButton:self.redButton];
+    [self unhighlightButton:self.blueButton];
+    [self unhighlightButton:self.greenButton];
+    
     self.currentViewColor = ViewColorRed;
 }
 
 - (IBAction)smallButtonPressed:(id)sender
 {
-    [self.smallButton setTintColor:[self darkerColorForColor:self.smallButton.backgroundColor]];
-    [self.mediumButton setTintColor:[self lighterColorForColor:self.mediumButton.backgroundColor]];
-    [self.largeButton setTintColor:[self lighterColorForColor:self.largeButton.backgroundColor]];
+    [self highlightButton:self.smallButton];
+    [self unhighlightButton:self.largeButton];
+    [self unhighlightButton:self.mediumButton];
+    
     self.currentViewSize = ViewSizeSmall;
 }
 
 - (IBAction)mediumButtonPressed:(id)sender
 {
-    [self.mediumButton setTintColor:[self darkerColorForColor:self.mediumButton.backgroundColor]];
-    [self.smallButton setTintColor:[self lighterColorForColor:self.smallButton.backgroundColor]];
-    [self.largeButton setTintColor:[self lighterColorForColor:self.largeButton.backgroundColor]];
+    [self highlightButton:self.mediumButton];
+    [self unhighlightButton:self.largeButton];
+    [self unhighlightButton:self.smallButton];
+    
     self.currentViewSize = ViewSizeMedium;
 }
 
 - (IBAction)largeButtonPressed:(id)sender
 {
-    [self.largeButton setTintColor:[self darkerColorForColor:self.largeButton.backgroundColor]];
-    [self.mediumButton setTintColor:[self lighterColorForColor:self.mediumButton.backgroundColor]];
-    [self.smallButton setTintColor:[self lighterColorForColor:self.smallButton.backgroundColor]];
+    [self highlightButton:self.largeButton];
+    [self unhighlightButton:self.smallButton];
+    [self unhighlightButton:self.mediumButton];
+    
     self.currentViewSize = ViewSizeLarge;
 }
 
 - (IBAction)squareButtonPressed:(id)sender
 {
-    [self.squareButton setTintColor:[self darkerColorForColor:self.squareButton.backgroundColor]];
-    [self.middleButton setTintColor:[self lighterColorForColor:self.middleButton.backgroundColor]];
-    [self.circleButton setTintColor:[self lighterColorForColor:self.circleButton.backgroundColor]];
+    [self highlightButton:self.squareButton];
+    [self unhighlightButton:self.middleButton];
+    [self unhighlightButton:self.circleButton];
+    
     self.currentViewShape = ViewShapeSquare;
 }
 
 - (IBAction)middleButtonPressed:(id)sender
 {
-    [self.middleButton setTintColor:[self darkerColorForColor:self.middleButton.backgroundColor]];
-    [self.squareButton setTintColor:[self lighterColorForColor:self.squareButton.backgroundColor]];
-    [self.circleButton setTintColor:[self lighterColorForColor:self.circleButton.backgroundColor]];
+    [self highlightButton:self.middleButton];
+    [self unhighlightButton:self.squareButton];
+    [self unhighlightButton:self.circleButton];
+    
     self.currentViewShape = ViewShapeRounded;
 }
 
 - (IBAction)circleButtonPressed:(id)sender
 {
-    [self.circleButton setTintColor:[self darkerColorForColor:self.circleButton.backgroundColor]];
-    [self.middleButton setTintColor:[self lighterColorForColor:self.middleButton.backgroundColor]];
-    [self.squareButton setTintColor:[self lighterColorForColor:self.squareButton.backgroundColor]];
+    [self highlightButton:self.circleButton];
+    [self unhighlightButton:self.middleButton];
+    [self unhighlightButton:self.squareButton];
+    
     self.currentViewShape = ViewShapeCircle;
+}
+
+- (void)highlightButton:(UIButton *)sender
+{
+    [sender setBackgroundColor:self.defaultGrey];
+}
+
+- (void)unhighlightButton:(UIButton *)sender
+{
+    [sender setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (UIColor *)lighterColorForColor:(UIColor *)c
 {
     CGFloat r, g, b, a;
     if ([c getRed:&r green:&g blue:&b alpha:&a])
-        return [UIColor colorWithRed:MIN(r + 0.2, 1.0)
-                               green:MIN(g + 0.2, 1.0)
-                                blue:MIN(b + 0.2, 1.0)
+        return [UIColor colorWithRed:MIN(r + 0.25, 1.0)
+                               green:MIN(g + 0.25, 1.0)
+                                blue:MIN(b + 0.25, 1.0)
                                alpha:a];
     return nil;
 }
@@ -145,9 +175,9 @@
 {
     CGFloat r, g, b, a;
     if ([c getRed:&r green:&g blue:&b alpha:&a])
-        return [UIColor colorWithRed:MAX(r - 0.2, 0.0)
-                               green:MAX(g - 0.2, 0.0)
-                                blue:MAX(b - 0.2, 0.0)
+        return [UIColor colorWithRed:MAX(r - 0.25, 0.0)
+                               green:MAX(g - 0.25, 0.0)
+                                blue:MAX(b - 0.25, 0.0)
                                alpha:a];
     return nil;
 }

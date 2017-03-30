@@ -22,16 +22,13 @@
     CGRect superFrame;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-                     andColor:(ViewColor)color
-                      andSize:(ViewSize)size
-                     andShape:(ViewShape)shape {
+- (instancetype)initWithFrame:(CGRect)frame andStyle:(ViewStyle)style {
     self = [super initWithFrame:frame];
     if (self) {
         superFrame = frame;
-        self.currentViewColor = color;
-        self.currentViewSize = size;
-        self.currentViewShape = shape;
+        self.currentViewColor = style.color;
+        self.currentViewSize = style.size;
+        self.currentViewShape = style.shape;
         [self configureUIWithFrame];
     }
     return self;

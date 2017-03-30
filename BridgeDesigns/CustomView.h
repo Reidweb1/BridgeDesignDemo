@@ -28,4 +28,12 @@ typedef NS_ENUM(NSUInteger, ViewShape) {
 
 @interface CustomView : UIView
 
+typedef struct {
+    ViewColor color;
+    ViewSize size;
+    ViewShape shape;
+} ViewStyle;
+
+- (instancetype)initWithFrame:(CGRect)frame andStyle:(ViewStyle)style;
+
 @end
