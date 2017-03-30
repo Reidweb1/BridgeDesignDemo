@@ -30,6 +30,25 @@ Used to "decouple an abstraction from its implementation so that the two can var
 - Design with the consumer in mind
 - Protect vital functionality from variables introduced by the user
 
+- Often used with Abstract Classes
+
+             _______
+            |       |
+            | View  |
+            |_______|
+            /   |   \
+ _______ __/ ___|___ \__ ______
+|       |   |       |   |      |
+| Color |   | Shape |   | Size |
+|_______|   |_______|   |______|
+        |       |       |
+        |_______|_______|
+        |               |
+        | Functionality |
+        |_______________|
+
+// Demo Code
+
 ************************************************************************************************************
 
 // CustomView.h
