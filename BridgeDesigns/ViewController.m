@@ -43,7 +43,18 @@
     self.currentViewSize = ViewSizeMedium;
     self.currentViewShape = ViewShapeRounded;
     
-    self.defaultGrey = [UIColor colorWithWhite:0.25 alpha:1.0];
+    self.defaultGrey = [UIColor colorWithWhite:0.90 alpha:1.0];
+    
+    CGFloat cornerRadius = 5;
+    [self.greenButton layer].cornerRadius = cornerRadius;
+    [self.blueButton layer].cornerRadius = cornerRadius;
+    [self.redButton layer].cornerRadius = cornerRadius;
+    [self.largeButton layer].cornerRadius = cornerRadius;
+    [self.smallButton layer].cornerRadius = cornerRadius;
+    [self.mediumButton layer].cornerRadius = cornerRadius;
+    [self.squareButton layer].cornerRadius = cornerRadius;
+    [self.middleButton layer].cornerRadius = cornerRadius;
+    [self.circleButton layer].cornerRadius = cornerRadius;
     
     [self highlightButton:self.blueButton];
     [self highlightButton:self.mediumButton];
