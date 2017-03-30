@@ -36,6 +36,10 @@
 
 - (void)configureUIWithFrame
 {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    [self addGestureRecognizer:tap];
+    self.userInteractionEnabled = YES;
+    
     [self configureSize];
     [self configureBackgroundColor];
     [self configureShape];
@@ -98,6 +102,39 @@
             break;
     }
     [self.containerView layer].cornerRadius = cornerRadius;
+}
+
+- (void)viewTapped:(id)sender
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.containerView setBackgroundColor:[self darkerColorForColor:self.containerView.backgroundColor]];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.containerView setBackgroundColor:[self lighterColorForColor:self.containerView.backgroundColor]];
+        } completion:nil];
+    }];
+}
+
+- (UIColor *)lighterColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MIN(r + 0.25, 1.0)
+                               green:MIN(g + 0.25, 1.0)
+                                blue:MIN(b + 0.25, 1.0)
+                               alpha:a];
+    return nil;
+}
+
+- (UIColor *)darkerColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MAX(r - 0.25, 0.0)
+                               green:MAX(g - 0.25, 0.0)
+                                blue:MAX(b - 0.25, 0.0)
+                               alpha:a];
+    return nil;
 }
 
 @end
