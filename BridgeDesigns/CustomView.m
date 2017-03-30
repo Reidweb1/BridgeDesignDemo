@@ -38,7 +38,7 @@
 {
     [self configureSize];
     [self configureBackgroundColor];
-    
+    [self configureShape];
 }
 
 - (void)configureSize
@@ -58,7 +58,8 @@
             break;
     }
     
-    CGRect newFrame = CGRectInset(superFrame, frameBuffer, frameBuffer);
+    CGSize newSize = CGSizeMake(superFrame.size.width - frameBuffer, superFrame.size.height - frameBuffer);
+    CGRect newFrame = CGRectMake(superFrame.size.width/2 - newSize.width/2, superFrame.size.height/2 - newSize.height/2, newSize.width, newSize.height);
     self.containerView = [[UIView alloc] initWithFrame:newFrame];
     [self addSubview:self.containerView];
 }
@@ -78,7 +79,7 @@
             color = [UIColor redColor];
             break;
     }
-    [self setBackgroundColor:color];
+    [self.containerView setBackgroundColor:color];
 }
 
 - (void)configureShape

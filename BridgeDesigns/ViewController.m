@@ -58,6 +58,11 @@
 
 - (IBAction)createNewView:(id)sender
 {
+    if (self.customView) {
+        [self.customView removeFromSuperview];
+        self.customView = nil;
+    }
+    
     CGFloat defaultSize = 200;
     CGRect viewFrame = CGRectMake(self.view.frame.size.width/2 - defaultSize/2, self.view.frame.size.height/2 - defaultSize/2, defaultSize, defaultSize);
     ViewStyle newStyle;
