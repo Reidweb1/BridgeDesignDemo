@@ -1,0 +1,146 @@
+                             ___....___
+   ^^                __..-:'':__:..:__:'':-..__
+                 _.-:__:.-:'':  :  :  :'':-.:__:-._
+               .':.-:  :  :  :  :  :  :  :  :  :._:'.
+            _ :.':  :  :  :  :  :  :  :  :  :  :  :'.: _
+           [ ]:  :  :  :  :  :  :  :  :  :  :  :  :  :[ ]
+           [ ]:  :  :  :  :  :  :  :  :  :  :  :  :  :[ ]
+  :::::::::[ ]:__:__:__:__:__:__:__:__:__:__:__:__:__:[ ]:::::::::::
+  !!!!!!!!![ ]!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!![ ]!!!!!!!!!!!
+  ^^^^^^^^^[ ]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[ ]^^^^^^^^^^^
+           [ ]                                        [ ]
+           [ ]                                        [ ]
+           [ ]                                        [ ]
+   ~~^_~^~/   \~^-~^~ _~^-~_^~-^~_^~~-^~_~^~-~_~-^~_^/   \~^ ~~_ ^
+
+______      _     _             ______         _              ______     _   _                  
+| ___ \    (_)   | |            |  _  \       (_)             | ___ \   | | | |                 
+| |_/ /_ __ _  __| | __ _  ___  | | | |___ ___ _  __ _ _ __   | |_/ __ _| |_| |_ ___ _ __ _ __  
+| ___ | '__| |/ _` |/ _` |/ _ \ | | | / _ / __| |/ _` | '_ \  |  __/ _` | __| __/ _ | '__| '_ \ 
+| |_/ | |  | | (_| | (_| |  __/ | |/ |  __\__ | | (_| | | | | | | | (_| | |_| ||  __| |  | | | |
+\____/|_|  |_|\__,_|\__, |\___| |___/ \___|___|_|\__, |_| |_| \_|  \__,_|\__|\__\___|_|  |_| |_|
+                     __/ |                        __/ |                                         
+                    |___/                        |___/                                         
+
+
+Used to "decouple an abstraction from its implementation so that the two can vary independently". Or... use flexible initializers to separate static functionality from dynamic functionality (or, commonly, appearance)
+
+- Website themes
+- User customization (think MySpace)
+- Design with the consumer in mind
+- Protect vital functionality from variables introduced by the user
+
+************************************************************************************************************
+
+// CustomView.h
+
+typedef NS_ENUM(NSUInteger, ViewColor) {
+    ViewColorGreen,
+    ViewColorBlue,
+    ViewColorRed,
+};
+
+typedef NS_ENUM(NSUInteger, ViewSize) {
+    ViewSizeSmall,
+    ViewSizeMedium,
+    ViewSizeLarge,
+};
+
+typedef NS_ENUM(NSUInteger, ViewShape) {
+    ViewShapeCircle,
+    ViewShapeRounded,
+    ViewShapeSquare,
+};
+
+@interface CustomView : UIView
+
+typedef struct {
+    ViewColor color;
+    ViewSize size;
+    ViewShape shape;
+} ViewStyle;
+
+- (instancetype)initWithFrame:(CGRect)frame andStyle:(ViewStyle)style;
+
+@end
+************************************************************************************************************
+
+************************************************************************************************************
+
+// CustomView.m
+
+- (instancetype)initWithFrame:(CGRect)frame andStyle:(ViewStyle)style {
+    self = [super initWithFrame:frame];
+    if (self) {
+        superFrame = frame;
+        self.currentViewColor = style.color;
+        self.currentViewSize = style.size;
+        self.currentViewShape = style.shape;
+        [self configureUIWithFrame];
+    }
+    return self;
+}
+
+- (void)configureSize
+{
+    CGFloat frameBuffer;
+    
+    switch (self.currentViewSize) {
+        case ViewSizeSmall:
+            frameBuffer = 32;
+            break;
+        case ViewSizeMedium:
+            frameBuffer = 16;
+            break;
+        case ViewSizeLarge:
+        default:
+            frameBuffer = 0;
+            break;
+    }
+    
+    CGSize newSize = CGSizeMake(superFrame.size.width - frameBuffer, superFrame.size.height - frameBuffer);
+    CGRect newFrame = CGRectMake(superFrame.size.width/2 - newSize.width/2, superFrame.size.height/2 - newSize.height/2, newSize.width, newSize.height);
+    self.containerView = [[UIView alloc] initWithFrame:newFrame];
+    [self addSubview:self.containerView];
+}
+
+- (void)configureBackgroundColor
+{
+    UIColor *color;
+    switch (self.currentViewColor) {
+        case ViewColorBlue:
+            color = [UIColor blueColor];
+            break;
+        case ViewColorGreen:
+            color = [UIColor greenColor];
+            break;
+        case ViewColorRed:
+        default:
+            color = [UIColor redColor];
+            break;
+    }
+    [self.containerView setBackgroundColor:color];
+}
+
+- (void)configureShape
+{
+    CGFloat cornerRadius;
+    switch (self.currentViewShape) {
+        case ViewShapeCircle:
+            cornerRadius = self.containerView.frame.size.width/2;
+            break;
+        case ViewShapeRounded:
+            cornerRadius = self.containerView.frame.size.width/4;
+            break;
+        case ViewShapeSquare:
+        default:
+            cornerRadius = 0;
+            break;
+    }
+    [self.containerView layer].cornerRadius = cornerRadius;
+}
+
+************************************************************************************************************
+
+
+iOS demo repo at: https://github.com/Reidweb1/BridgeDesignDemo
