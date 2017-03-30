@@ -96,6 +96,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="Mki-js-VPP"/>
                                     <constraint firstItem="Uq3-UM-5G3" firstAttribute="leading" secondItem="xC2-Ry-R8S" secondAttribute="leading" constant="8" id="P6a-bx-JNP"/>
@@ -127,7 +128,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xC2-Ry-R8S" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8y9-tG-1SY"/>
                             <constraint firstItem="M3A-Z2-aow" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Gxu-6L-HZ8"/>
@@ -138,6 +139,7 @@
                     </view>
                     <connections>
                         <outlet property="blueButton" destination="VnO-R0-WfH" id="eRv-3Z-3V9"/>
+                        <outlet property="buttonContainerView" destination="xC2-Ry-R8S" id="dbz-2u-WcG"/>
                         <outlet property="circleButton" destination="IK8-Ly-jJG" id="Zjo-LU-jNj"/>
                         <outlet property="createViewButton" destination="M3A-Z2-aow" id="wip-8o-h9M"/>
                         <outlet property="greenButton" destination="sb9-Ho-aWS" id="07a-0q-QFL"/>

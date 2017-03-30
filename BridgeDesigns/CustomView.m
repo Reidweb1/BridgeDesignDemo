@@ -51,10 +51,10 @@
     
     switch (self.currentViewSize) {
         case ViewSizeSmall:
-            frameBuffer = 32;
+            frameBuffer = 40;
             break;
         case ViewSizeMedium:
-            frameBuffer = 16;
+            frameBuffer = 24;
             break;
         case ViewSizeLarge:
         default:

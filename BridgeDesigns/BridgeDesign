@@ -23,14 +23,16 @@ ______      _     _             ______         _              ______     _   _
                     |___/                        |___/                                         
 
 
-Used to "decouple an abstraction from its implementation so that the two can vary independently". Or... use flexible initializers to separate static functionality from dynamic functionality (or, commonly, appearance)
+Used to "decouple an abstraction from its implementation so that the two can vary independently". 
+
+Or... use flexible initializers to separate static functionality from dynamic functionality (or, commonly, appearance)
 
 - Website themes
 - User customization (think MySpace)
+
 - Design with the consumer in mind
 - Protect vital functionality from variables introduced by the user
 
-- Often used with Abstract Classes
 
              _______
             |       |
@@ -41,8 +43,8 @@ Used to "decouple an abstraction from its implementation so that the two can var
 |       |   |       |   |      |
 | Color |   | Shape |   | Size |
 |_______|   |_______|   |______|
-        |       |       |
-        |_______|_______|
+        \       |       /
+         |______|______|
         |               |
         | Functionality |
         |_______________|

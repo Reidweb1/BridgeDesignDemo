@@ -12,6 +12,8 @@
 
 @interface ViewController ()
 
+@property (weak, nonatomic) IBOutlet UIView *buttonContainerView;
+
 @property (weak, nonatomic) IBOutlet UIButton *createViewButton;
 @property (weak, nonatomic) IBOutlet UIButton *greenButton;
 @property (weak, nonatomic) IBOutlet UIButton *blueButton;
@@ -39,13 +41,17 @@
 {
     [super viewDidLoad];
     
+    CGFloat cornerRadius = 5;
+    [[self.buttonContainerView layer] setBorderColor:[UIColor blackColor].CGColor];
+    [[self.buttonContainerView layer] setBorderWidth:1.0f];
+    [self.buttonContainerView layer].cornerRadius = cornerRadius;
+    
     self.currentViewColor = ViewColorBlue;
     self.currentViewSize = ViewSizeMedium;
     self.currentViewShape = ViewShapeRounded;
     
     self.defaultGrey = [UIColor colorWithWhite:0.90 alpha:1.0];
     
-    CGFloat cornerRadius = 5;
     [self.greenButton layer].cornerRadius = cornerRadius;
     [self.blueButton layer].cornerRadius = cornerRadius;
     [self.redButton layer].cornerRadius = cornerRadius;
@@ -75,7 +81,7 @@
     }
     
     CGFloat defaultSize = 200;
-    CGRect viewFrame = CGRectMake(self.view.frame.size.width/2 - defaultSize/2, self.view.frame.size.height/2 - defaultSize/2, defaultSize, defaultSize);
+    CGRect viewFrame = CGRectMake(self.view.frame.size.width/2 - defaultSize/2, self.view.frame.size.height*.35 - defaultSize/2, defaultSize, defaultSize);
     ViewStyle newStyle;
     newStyle.color = self.currentViewColor;
     newStyle.shape = self.currentViewShape;
